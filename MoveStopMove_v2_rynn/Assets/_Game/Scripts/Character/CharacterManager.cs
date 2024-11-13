@@ -40,6 +40,7 @@ public class CharacterManager : MonoBehaviour, IHit
 
     //bool
     #region
+    [Header("Logic / Boolean")]
     public bool isDead;
 
     public bool checkFirstAttack;
@@ -50,13 +51,15 @@ public class CharacterManager : MonoBehaviour, IHit
 
     //float 
     #region Range - Timer
+    [Header ("Settings")]
     public float range;
 
     public float timer;
     #endregion
 
     //GameObject
-    #region Object
+    #region Object Weapon
+    [Header ("Attack")]
     public GameObject WeaponHand;
 
     [HideInInspector] public GameObject nearestCharacter;
@@ -65,20 +68,25 @@ public class CharacterManager : MonoBehaviour, IHit
 
     #endregion
     //Transform
-    #region
+    #region Point Spawn Bullet
+    [Header("Point spawn bullet")]
     public Transform PointSpawnBullet;
     #endregion
 
     public TextMeshProUGUI Name;
 
+    [Header("Health")]
     [SerializeField] int heal;
 
+    [Header("Effect")]
     public ParticleSystem effectOnDead;
 
+    [Header("Score")]
     public TextMeshProUGUI ScoreText;
 
     public int Score = 0;
 
+    [Header("Bullet")]
     public GameObject bullet;
 
     public Vector3 bulletPos;
@@ -118,6 +126,7 @@ public class CharacterManager : MonoBehaviour, IHit
             GameManager.Instance._listCharacter.Remove(this);
         }
     }
+    // Find target
     public void FindAround()
     {
         float shortestDistance = Mathf.Infinity;
@@ -317,6 +326,7 @@ public class CharacterManager : MonoBehaviour, IHit
         gameObject.SetActive(false);
     }
 
+    // OnHit - Deal damage 
     public void OnHit(int damage)
     {
         heal -= damage;

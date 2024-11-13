@@ -42,18 +42,23 @@ public class PlayerCtrl : CharacterManager
 
     public Renderer SkinPos;
 
+    [Header("Joystick")]
     [SerializeField] FloatingJoystick joystick;
 
     [SerializeField] GameObject joystickObject;
 
+    [Header("Settings")]
     [SerializeField] private float moveSpeed;
     
     [SerializeField] private float rotationSpeed;
 
+    [Header("Animator")]
     [SerializeField] private Animator animator;
 
+    [Header("Collider")]
     Collider _collider;
 
+    [Header("Time Cooldown")]
     public float timeStart = 1.5f;
 
     public float timeCountdownt = 0;
