@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d936d44c35c61a94d80f962a9626c9b1, type: 3}
+  m_Name: PlayerItems
+  m_EditorClassIdentifier: 
+  HeadPos:
+  - {fileID: 4327051842446302850, guid: a8fa603d7a628e8449bf8a22ca264356, type: 3}
+  - {fileID: 1678144172913983571, guid: 509477fb2ed07044eb78a37d58bd89b7, type: 3}
+  - {fileID: 3270723796436366389, guid: f786d2896d02b484f955473e504381b5, type: 3}
+  - {fileID: 6961293876602357157, guid: f6af24d80c36bbc4eae141c52d4236c6, type: 3}
+  - {fileID: 871803533414391470, guid: 5685ffc2b01e989499f92f8a318d5fd3, type: 3}
+  - {fileID: 10044417455696680, guid: c750ae46949ecb54f8247939e3afe41a, type: 3}
+  - {fileID: 4896691754874073397, guid: 16ec7ea679891cf4a976118da534ee24, type: 3}
+  - {fileID: 5652712726018239754, guid: 849841fcfc0932f429237096b1ae2a67, type: 3}
+  - {fileID: 172973660719435930, guid: 28cff1775e974fc41b4cc307ee79dfc9, type: 3}
+  - {fileID: 6617041333032165915, guid: a13e518942b243943962f734fdd7ac3e, type: 3}
+  TailPos:
+  - {fileID: 8825215704841492048, guid: 22deffad4f03d1743ae6c9e6d7b03b5a, type: 3}
+  ShieldPos:
+  - {fileID: 3641355935661710027, guid: d80be1d27fae236469dfa9e93f2b0dd0, type: 3}
+  - {fileID: 1661324564147996819, guid: a48c422d606c8f94cb41ffbde4f24bb2, type: 3}
+  - {fileID: 3816690291064447961, guid: 2bf3dc176e623e246816b966a0a6c274, type: 3}
+  - {fileID: 1647156555726526553, guid: 3d5931a475078c44fb4127d21091c356, type: 3}
+  PantsMaterials:
+  - {fileID: 2100000, guid: 41f85404192685947bfccd1fa833ac89, type: 2}
+  - {fileID: 2100000, guid: 1a8a4b5e10183da4e8a4164bf06a7d62, type: 2}
+  - {fileID: 2100000, guid: cc07611d1506072418f6d9aefd895ff8, type: 2}
+  - {fileID: 2100000, guid: ffffc0deaeaf32541b943da0e0c54431, type: 2}
+  - {fileID: 2100000, guid: c54c18971a5921842a13c3ad0d3d6bba, type: 2}
+  - {fileID: 2100000, guid: 0c2a33b902dff004ba751c14e0da8a7b, type: 2}
+  - {fileID: 2100000, guid: 3daa3b7c967dcb242b0c13238d2f2c8a, type: 2}
+  - {fileID: 2100000, guid: 119de39d67fef5b4aa11f83678356b59, type: 2}
+  - {fileID: 2100000, guid: 6fe8a89d645852b4b9d1860eb81bd08a, type: 2}
+  SkinMaterials:
+  - {fileID: 2100000, guid: 6fe8a89d645852b4b9d1860eb81bd08a, type: 2}
+  - {fileID: 2100000, guid: a44bda687e509e246a53ade9e31b9ec4, type: 2}
+  - {fileID: 2100000, guid: a8b7f9d6a71b064488f5b711f6a2e6b0, type: 2}
+  - {fileID: 2100000, guid: 69da98917c4607d4ca0d79ea15ca4ea6, type: 2}
+  WingPos:
+  - {fileID: 8920013347055614431, guid: d5bf79a841939f244aa717de8d001be5, type: 3}
+  - {fileID: 859517583403518704, guid: c8e77666468d4b24387362fbcc3d0a9a, type: 3}
