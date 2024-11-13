@@ -48,15 +48,15 @@ public class CharacterManager : MonoBehaviour, IHit
 
     #endregion
 
-    //float
-    #region
+    //float 
+    #region Range - Timer
     public float range;
 
     public float timer;
     #endregion
 
     //GameObject
-    #region
+    #region Object
     public GameObject WeaponHand;
 
     [HideInInspector] public GameObject nearestCharacter;
