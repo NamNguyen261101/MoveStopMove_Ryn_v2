@@ -271,17 +271,19 @@ public class GUIManager : MonoBehaviour
         CanvasFade.gameObject.SetActive(true);
 
 
-        StartCoroutine(loadSceneDelay(0));
+        StartCoroutine(LoadSceneDelay(0));
     }
 
+    // NEXT LEVEL ==== BTN
     public void NextLevel()
     {
         CanvasFade.gameObject.SetActive(true);
 
-        StartCoroutine(loadSceneDelay(1));
+        StartCoroutine(LoadSceneDelay(1));
 
     }
 
+    // CONTINUE BUTTON CLICK
     public void ContinueButtonClick()
     {
         ControlBoard.SetActive(false);
@@ -289,7 +291,8 @@ public class GUIManager : MonoBehaviour
         CanvasGameplay.SetActive(true);
     }
 
-    public void settingButtonClick()
+    // SETTING BTN CLICK
+    public void SettingButtonClick()
     {
         ControlBoard.SetActive(true);
 
@@ -297,7 +300,8 @@ public class GUIManager : MonoBehaviour
 
     }
 
-    IEnumerator loadSceneDelay(int buildIndex)
+    // SCENE DELAY 
+    IEnumerator LoadSceneDelay(int buildIndex)
     {
         int SceneIndex = SceneManager.GetActiveScene().buildIndex;
 
@@ -311,20 +315,23 @@ public class GUIManager : MonoBehaviour
         SettingButton.gameObject.SetActive(true);
     }
 
-    public void showSkinShopDelay()
+    // SHOW SKIN SHOP DELAY
+    public void ShowSkinShopDelay()
     {
         closeButton.gameObject.SetActive(true);
 
         CanvasSkin.SetActive(true);
     }
     
-    public void showWeaponShopDelay()
+    // SHOW WEAPON SHOP DELAY
+    public void ShowWeaponShopDelay()
     {
         closeButton.gameObject.SetActive(true);
 
         CanvasWeapon.SetActive(true);
     }
 
+    // SOUND TOGGLE
     public void SoundToggle()
     {
         if(changeSound.isOn == true)
@@ -349,6 +356,7 @@ public class GUIManager : MonoBehaviour
         }
     }
 
+    // Delete Key => Player system
     public void DeleteKey()
     {
         PlayerPrefs.DeleteAll();

@@ -84,6 +84,7 @@ public class CharacterManager : MonoBehaviour, IHit
     public Transform PointSpawnBullet;
     #endregion
 
+    [Header("Name Player")]
     public TextMeshProUGUI Name;
 
     [Header("Health")]
@@ -106,12 +107,13 @@ public class CharacterManager : MonoBehaviour, IHit
 
     public Animator MyAnimator { get; private set; }
 
+    [Header("Damage")]
     public int Damage;
 
     [HideInInspector] public Animator AnimName;
     public virtual void Awake()
     {
-        CharacterTransform = this.transform;
+        CharacterTransform = this.transform; // start
 
         AnimName = Name.GetComponent<Animator>();
     }
@@ -166,6 +168,7 @@ public class CharacterManager : MonoBehaviour, IHit
         {
             nearestCharacter = target;
 
+            // SHOW THE OBJECT TARGET UNDER (CIRCLE GAME OBJECT)
             if (target.tag == PlayerTag && target.tag != EnemyTag)
             {
                 TargetFoot.gameObject.SetActive(true); // active Target sprite
@@ -196,12 +199,13 @@ public class CharacterManager : MonoBehaviour, IHit
         }
     }
 
-    // SHOW WEAPON ============================
-    public void showWeapon()
+    // SHOW WEAPON ============================ (IN ENEMY - PLAYER -- CONTROL)
+    public void ShowWeapon()
     {
         WeaponHand.SetActive(true);
     }
 
+    // HIDE WEAPON ============================ (IN ENEMY - PLAYER)
     public void /*IEnumerator*/ HideWeapon()
     {
         //yield return new WaitForSeconds(0.42f);
@@ -244,14 +248,19 @@ public class CharacterManager : MonoBehaviour, IHit
         // TRANSFORM BULLET
         Transform bulletTransForm = infoBulletAfterPool.transform;
 
+        // Nearest Object
         Transform nearestTransform = nearestCharacter.transform;
 
+        // Bullet Scale => IF TARGET OR PLAYER UP SIZE
         bulletTransForm.localScale = CharacterTransform.localScale;
 
+        // Bullet Position (Where to spawn)
         bulletTransForm.position = PointSpawnBullet.position;
 
+        // Bullet Rotation (Going with character)
         bulletTransForm.rotation = bulletTransForm.rotation;
 
+        // Pooling Active
         poolingBullet.SetActive(true);
 
         // SET TO TARGET POSITION FIRST
@@ -264,6 +273,7 @@ public class CharacterManager : MonoBehaviour, IHit
         infoBulletAfterPool.SetOwnerPos(CharacterTransform.position);
     }
 
+    // Attack (PLAYER === AND === BOT)
     public IEnumerator Attacking()
     {
         MyAnimator.SetTrigger(AnimAttackTag);
@@ -275,10 +285,13 @@ public class CharacterManager : MonoBehaviour, IHit
 
     private void OnTriggerEnter(Collider other)
     {
+        // Candy bullet
         CandyBullet bulletWeaponScript = other.gameObject.GetComponent<CandyBullet>();
 
+        // Set onwer
         Transform bulletOfOwnerTransForm = bulletWeaponScript.characterOwner.transform;
 
+        // Check
         if (other.gameObject.CompareTag(bulletTag))
         {
             if (this != bulletWeaponScript.characterOwner) // kiem tra neu thang nem vu khi khac chinh no thi thuc hien
@@ -287,26 +300,29 @@ public class CharacterManager : MonoBehaviour, IHit
 
                 other.gameObject.SetActive(false);
 
-                GameObject BGKillFeed = Instantiate(GUIManager.Instance.KillFeed, GUIManager.Instance.SpawnKillFeedPos);
+                // KILL FEED SPAWN IN GAME PLAY
+                GameObject BGKillFeed = Instantiate(GUIManager.Instance.KillFeed, GUIManager.Instance.SpawnKillFeedPos); // BG KILL FEED (GAMEOBJECT) - SPAWN FEED TO CHILD CANVAS
 
+                // ENEMY KILL (WHO KILL)
                 TextMeshProUGUI EnemyTextOfKillfeed = BGKillFeed.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
+                // KILL BY EMENY
                 TextMeshProUGUI PlayerTextOfKillfeed = BGKillFeed.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
                 PlayerTextOfKillfeed.text = bulletWeaponScript.characterOwner.Name.text;
 
                 EnemyTextOfKillfeed.text = this.Name.text;
 
-                Destroy(BGKillFeed, 2);
+                Destroy(BGKillFeed, 2); // DESTROY -> USING POOL is oke (CAN't FIGURE IT OUT)
             }
 
-            if(this.name != bulletWeaponScript.characterOwner.name)
+            if(this.name != bulletWeaponScript.characterOwner.name) // kiem tra dan cua thang do k the bay vao chinh no
             {
-                bulletWeaponScript.characterOwner.Score++;
+                bulletWeaponScript.characterOwner.Score++; // Score Update
 
-                bulletWeaponScript.characterOwner.ScoreText.text = bulletWeaponScript.characterOwner.Score.ToString();
+                bulletWeaponScript.characterOwner.ScoreText.text = bulletWeaponScript.characterOwner.Score.ToString(); // Score update mother board
 
-                bulletOfOwnerTransForm.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+                bulletOfOwnerTransForm.localScale += new Vector3(0.1f, 0.1f, 0.1f); // RESIZE (UPDATE SCALE)
 
                 bulletWeaponScript.characterOwner.Damage += 1;
 
@@ -315,6 +331,7 @@ public class CharacterManager : MonoBehaviour, IHit
                     bulletWeaponScript.characterOwner.Damage = 15;
                 }
 
+                // CHANGE RANGE
                 bulletWeaponScript.characterOwner.range += 0.025f;
 
                 if(bulletWeaponScript.characterOwner.tag == PlayerTag)
@@ -327,6 +344,7 @@ public class CharacterManager : MonoBehaviour, IHit
                     }
                 }
 
+                // CONTROL RANGE == LOCAL SCALE (CAN'T DELETE IF DON'T need)
                 if (bulletWeaponScript.characterOwner.range >= 0.4f)
                 {
                     bulletWeaponScript.characterOwner.range = 0.4f;
@@ -365,6 +383,7 @@ public class CharacterManager : MonoBehaviour, IHit
         OnDead();
     }
 
+    // SHOW WEAPON IN HAND
     public void GetWeaponHand(GameObject WeaponInHand)
     {
         WeaponHand = WeaponInHand;

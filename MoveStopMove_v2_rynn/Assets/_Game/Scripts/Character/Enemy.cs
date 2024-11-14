@@ -10,12 +10,16 @@ public class Enemy : CharacterManager
 {
     private IEnemyState currentState;
 
+    [Header("Way Points")]
     public List<Transform> wayPoints = new List<Transform>();
 
+    [Header ("NavMeshAgent")]
     internal NavMeshAgent agent;
 
+    [Header("Rigibody")]
     internal Rigidbody rb;
 
+    [Header("Settings")]
     internal Enemy scripts;
 
     internal Collider _collider;
@@ -24,8 +28,11 @@ public class Enemy : CharacterManager
 
     public float timeStart = 3f;
 
+    [Header("Attack Cooldown")]
     public float timeCountdownt = 0;
 
+    // base in character
+    [Header("Enemy Name")]
     public NameCharacter EnemyName;
     public override void Awake()
     {
@@ -64,7 +71,7 @@ public class Enemy : CharacterManager
             currentState.Execute();
         }
 
-        deadFunction();
+        DeadFunction();
 
         timeCountdownt -= Time.deltaTime;
 
@@ -74,7 +81,7 @@ public class Enemy : CharacterManager
 
         if (timeCountdownt <= 0)
         {
-            showWeapon();
+            ShowWeapon();
         }
 
         if(isDead == true)
@@ -94,6 +101,7 @@ public class Enemy : CharacterManager
         //}
     }
 
+    // FIRE FOR ENEMY (Bullet)
     public void Fire()
     {
         if(nearestCharacter == null)
@@ -139,6 +147,7 @@ public class Enemy : CharacterManager
 
     }
 
+    // Attack
     public IEnumerator Attacked()
     {
         MyAnimator.SetTrigger(AnimAttackTag);
@@ -148,7 +157,8 @@ public class Enemy : CharacterManager
         Fire();
     }
 
-    public void deadFunction()
+    // Dead function (off all) = false 
+    public void DeadFunction()
     {
         if(isDead == true)
         {
@@ -163,10 +173,14 @@ public class Enemy : CharacterManager
             GameManager.Instance._listCharacter.Remove(this);
         }
     }
+    
+    // Set up move
     public void Move()
     {
+        // Di theo way point
         Transform wp = wayPoints[currentWaypointIndex];
 
+        // check move near to way point or not
         if (Vector3.Distance(agent.transform.position, wp.position) < 0.01f)
         {
             MyAnimator.SetBool(AnimIdleTag, true);
@@ -185,6 +199,7 @@ public class Enemy : CharacterManager
         }
     }
 
+    // Cancel Destiniation 
     public void CancelDestination()
     {
         currentWaypointIndex = Random.Range(Random.Range(0, 10), wayPoints.Count);
@@ -192,6 +207,7 @@ public class Enemy : CharacterManager
         agent.SetDestination(agent.transform.position);
     }
 
+    // Change state INTERFACE
     public void ChangeState(IEnemyState newState)
     {
         if(currentState != null)

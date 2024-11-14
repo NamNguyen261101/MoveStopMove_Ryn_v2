@@ -28,8 +28,10 @@ public class PlayerCtrl : CharacterManager
 
     [HideInInspector] public SetFullOrNormal lastItems;
 
+    [Header("Info Item")]
     public ItemsInfo PlayerItems;
 
+    [Header("Skin Position")]
     public Transform HeadPos;
 
     public Transform TailPos;
@@ -65,8 +67,10 @@ public class PlayerCtrl : CharacterManager
 
     Transform playerTransform;
 
+    [Header("Weapon Array")]
     public GameObject[] weaponArray = new GameObject[3];
 
+    [Header("Bullet Array")]
     public GameObject[] BulletArray = new GameObject[3];
 
     public WeaponInfo weaponInfo;
@@ -92,7 +96,7 @@ public class PlayerCtrl : CharacterManager
     public override void Update()
     {
         base.Update();
-        
+        // Joystick
         if (GameManager.Instance.isGameActive == true)
         {
             joystickObject.SetActive(true);
@@ -112,29 +116,34 @@ public class PlayerCtrl : CharacterManager
             }
         }
 
+        // Active win canvas
         if (GameManager.Instance.isWin == true)
         {
             moveSpeed = 0;
 
             _collider.enabled = false;
 
+            // set animator
             MyAnimator.SetBool(AnimIdleTag, true);
 
             MyAnimator.SetBool(AnimDanceTag, true);
         }
 
+        // Active lose canvas
         if(this.isDead == true)
         {
             GameManager.Instance.isLose = true;
         }
 
+        // Active Gameplay
         if (GameManager.Instance.isGameActive == true)
         {
-            if (isDead == false)
+            if (isDead == false) // check dead or not first
             {
-                PlayerMovement();
+                PlayerMovement(); // movement
             }
 
+            // finding => range => attack
             if (nearestCharacter != null)
             {
                 Transform nearestCharacterTransform = nearestCharacter.transform;
@@ -148,6 +157,7 @@ public class PlayerCtrl : CharacterManager
                     StartCoroutine(Attacking());
                 }
             }
+            // Time Count Down
             timeCountdownt -= Time.deltaTime;
 
             timeCountdownt = Mathf.Clamp(timeCountdownt, 0, Mathf.Infinity);
@@ -156,16 +166,18 @@ public class PlayerCtrl : CharacterManager
             {
                 Transform nearestTransform = nearestCharacter.transform;
 
-                playerTransform.LookAt(nearestTransform);
+                playerTransform.LookAt(nearestTransform); // look to the enemy
             }
         }
 
+        // COUNT DOWN RESET => SHOW WEAPON ON HAND AGAIN
         if(timeCountdownt <= 0)
         {
-            showWeapon();
+            ShowWeapon();
         }
     }
 
+    // ========================== Player Movement ========================== //
     public void PlayerMovement()
     {
         isMoving = true;
@@ -178,16 +190,20 @@ public class PlayerCtrl : CharacterManager
 
         movementDirection.Normalize();
 
+        // Gan toc do de di chuyen
         transform.Translate(movementDirection * moveSpeed * Time.deltaTime, Space.World);
 
+        // SET ROTATE
         if (movementDirection != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed);
 
+            // set to attack
             checkFirstAttack = true;
 
+            // animator
             MyAnimator.SetBool(AnimIdleTag, false);
         }
         else
@@ -198,6 +214,7 @@ public class PlayerCtrl : CharacterManager
         }
     }
 
+    // Update Player Items
     public void UpdatePlayerItems()
     {
         for(int i = 0; i < 20; i++)
@@ -217,7 +234,7 @@ public class PlayerCtrl : CharacterManager
         }
     }
 
-    // Change Skin
+    // Change Weapon
 
     public void WeaponSwitch(WeaponType _weaponType)
     {
@@ -238,6 +255,7 @@ public class PlayerCtrl : CharacterManager
         }
     }
 
+    // Change items
     public void ChangeItems(ItemsType _ItemsType)
     {
         SetFullOrNormal _setFullOrNormal;
