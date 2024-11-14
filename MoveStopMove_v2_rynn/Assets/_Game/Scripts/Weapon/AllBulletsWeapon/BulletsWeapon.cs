@@ -6,26 +6,28 @@ using UnityEngine;
 
 public class BulletsWeapon : MonoBehaviour
 {
+    [Header ("Settings")]
     public float timer;
 
     public float speed;
 
-    public Vector3 positionTarget;
+    [Header("Target")]
+    public Vector3 positionTarget; // point target
 
-    public Vector3 charOwnerPos;
+    public Vector3 charOwnerPos; // Char Owner Position
 
-    public Vector3 fixedDirectToCharacter;
+    protected Vector3 fixedDirectToCharacter; 
 
-    public CharacterManager characterOwner;
+    public CharacterManager characterOwner; // Character == Owner for Object Weapon
 
-    public Vector3 posSpawnBullet;
+    private Vector3 posSpawnBullet; 
 
     private void Update()
     {
 
         UpdateState();
 
-        autoDespawnIfOutOfRange();
+        AutoDespawnIfOutOfRange();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,8 +40,8 @@ public class BulletsWeapon : MonoBehaviour
         
     }
 
-
-    public void autoDespawnIfOutOfRange()
+    // BULLET OUT OF RANGE == DESPAWN
+    public void AutoDespawnIfOutOfRange()
     {
 
         if (Vector3.Distance(charOwnerPos, transform.position) > characterOwner.range)
@@ -47,18 +49,23 @@ public class BulletsWeapon : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void setOwnerPos(Vector3 _charOwnerPos)
+
+    // Set OWN POS
+    public void SetOwnerPos(Vector3 _charOwnerPos)
     {
+        // Starting from (Char)
         charOwnerPos = _charOwnerPos;
 
         fixedDirectToCharacter = (positionTarget - charOwnerPos).normalized;
     }
-    public void setTargetPosition(Vector3 _targetPos)
+    // Set Target Position => BULLET TO TARGET
+    public void SetTargetPosition(Vector3 _targetPos)
     {
         positionTarget = _targetPos;
     }
 
-    public void setOwnerChar(CharacterManager _characterOwner)
+    // SET POSITION FOR CHAR TO KNOW THE TARGET
+    public void SetOwnerChar(CharacterManager _characterOwner)
     {
         characterOwner = _characterOwner;
     }

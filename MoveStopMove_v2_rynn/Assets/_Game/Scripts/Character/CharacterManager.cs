@@ -5,7 +5,18 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 
-public enum NameCharacter { Johny, Kevil, Tonny, Depp, Bill, Crytal, David, Tucson, Niel, Tonado };
+public enum NameCharacter 
+    {   Johny, 
+        Kevil, 
+        Tonny, 
+        Depp, 
+        Bill, 
+        Crytal, 
+        David, 
+        Tucson, 
+        Niel, 
+        Tonado 
+    };
 public class CharacterManager : MonoBehaviour, IHit
 {
     //string
@@ -129,16 +140,18 @@ public class CharacterManager : MonoBehaviour, IHit
     // Find target
     public void FindAround()
     {
-        float shortestDistance = Mathf.Infinity;
+        float shortestDistance = Mathf.Infinity; // Find a shortes
 
-        GameObject target = null;
+        GameObject target = null; // Target
 
-        for (int i = 0; i < GameManager.Instance._listCharacter.Count; i++)
+        // check all target in game manager
+        for (int i = 0; i < GameManager.Instance._listCharacter.Count; i++) 
         {
             if(this != GameManager.Instance._listCharacter[i])
             {
                 float distanceToOtherCharacter = Vector3.Distance(this.gameObject.transform.position, GameManager.Instance._listCharacter[i].transform.position);
 
+                // check thang nao gan nhat
                 if (distanceToOtherCharacter < shortestDistance)
                 {
                     shortestDistance = distanceToOtherCharacter;
@@ -147,7 +160,7 @@ public class CharacterManager : MonoBehaviour, IHit
                 }
             }
         }
-        nearestCharacter = target;
+        nearestCharacter = target; // gan lai vao thang target
         
         if (target != null && shortestDistance < range * target.transform.localScale.z /* nhan voi scale cua nhan vat de thay foot target*/)
         {
@@ -155,7 +168,7 @@ public class CharacterManager : MonoBehaviour, IHit
 
             if (target.tag == PlayerTag && target.tag != EnemyTag)
             {
-                TargetFoot.gameObject.SetActive(true);
+                TargetFoot.gameObject.SetActive(true); // active Target sprite
             }
         }
         else
@@ -166,6 +179,7 @@ public class CharacterManager : MonoBehaviour, IHit
         }
     }
 
+    // DEAD ==========================================
     public void OnDead()
     {
         if(isDead == true)
@@ -182,6 +196,7 @@ public class CharacterManager : MonoBehaviour, IHit
         }
     }
 
+    // SHOW WEAPON ============================
     public void showWeapon()
     {
         WeaponHand.SetActive(true);
@@ -194,17 +209,22 @@ public class CharacterManager : MonoBehaviour, IHit
         WeaponHand.SetActive(false);
     }
 
+    // SHOOT
     public void FireBullet()
     {
+        // Cancel attack (IF MOVING)
         if(isMoving == true || nearestCharacter == null)
         {
             return;
         }
 
+        // SPAWN BULLET
         GameObject poolingBullet = null;
 
+        // HIDE WEAPON BEFORE SHOOT
         HideWeapon();
 
+        // CHECK THE BULLET NAME (POOLING OUT THE OBJECT)
         if (bullet.name == HammerBulletName)
         {
             poolingBullet = PoolBullet.Instance.GetPooledBullet();
@@ -218,9 +238,11 @@ public class CharacterManager : MonoBehaviour, IHit
             poolingBullet = PoolKnife.Instance.GetPooledBullet();
         }
 
-        BulletsWeapon InfoBulletAfterPool = poolingBullet.GetComponent<BulletsWeapon>();
+        // GET INFO BULLET AFTER POOL
+        BulletsWeapon infoBulletAfterPool = poolingBullet.GetComponent<BulletsWeapon>(); // get component
 
-        Transform bulletTransForm = InfoBulletAfterPool.transform;
+        // TRANSFORM BULLET
+        Transform bulletTransForm = infoBulletAfterPool.transform;
 
         Transform nearestTransform = nearestCharacter.transform;
 
@@ -232,11 +254,14 @@ public class CharacterManager : MonoBehaviour, IHit
 
         poolingBullet.SetActive(true);
 
-        InfoBulletAfterPool.setTargetPosition(nearestTransform.position);
+        // SET TO TARGET POSITION FIRST
+        infoBulletAfterPool.SetTargetPosition(nearestTransform.position);
 
-        InfoBulletAfterPool.setOwnerChar(this);
+        // SET BULLET SHOOT FROM WHOM
+        infoBulletAfterPool.SetOwnerChar(this);
 
-        InfoBulletAfterPool.setOwnerPos(CharacterTransform.position);
+        // POSITION SHOOT
+        infoBulletAfterPool.SetOwnerPos(CharacterTransform.position);
     }
 
     public IEnumerator Attacking()

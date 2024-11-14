@@ -131,11 +131,11 @@ public class Enemy : CharacterManager
 
         poolingBullet.SetActive(true);
 
-        InfoBulletAfterPool.setTargetPosition(nearestTransform.position);
+        InfoBulletAfterPool.SetTargetPosition(nearestTransform.position);
 
-        InfoBulletAfterPool.setOwnerChar(this);
+        InfoBulletAfterPool.SetOwnerChar(this);
 
-        InfoBulletAfterPool.setOwnerPos(CharacterTransform.position);
+        InfoBulletAfterPool.SetOwnerPos(CharacterTransform.position);
 
     }
 
