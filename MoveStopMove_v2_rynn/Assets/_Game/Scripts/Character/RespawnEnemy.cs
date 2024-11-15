@@ -20,6 +20,7 @@ public class RespawnEnemy : MonoBehaviour
         InvokeRepeating(RespawnTag, 0, 0.05f);
     }
 
+    // Respawn == Control range
     public void Respawn()
     {
         if (GameManager.Instance.EnemyCount <= 0)
@@ -40,6 +41,7 @@ public class RespawnEnemy : MonoBehaviour
         }
     }
 
+    // Spawn ==== Enemy 
     public void Spawn(Enemy _enemy)
     {
         _enemy.gameObject.SetActive(true);

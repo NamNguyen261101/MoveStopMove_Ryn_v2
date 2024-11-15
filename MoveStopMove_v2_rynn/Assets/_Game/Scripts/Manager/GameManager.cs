@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
 
         GUIManager.Instance.CoinsText.text = PlayerPrefs.GetInt("Coins").ToString();
     }
+
+    // 
     private void Update()
     {
         GUIManager.Instance.CoinsText.text = PlayerPrefs.GetInt("Coins").ToString();
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
             GUIManager.Instance.CoinsText.text = Coins.ToString();
         }
 
+        // Set Active for weapon
         if(isGameActive == true)
         {
             PoolHammer.SetActive(true);
@@ -87,6 +90,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Awake Instance for game
     private void InitializeSingleton()
     {
         if (Instance != null && Instance != this)
@@ -99,6 +103,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Add Coin
     public void AddCoins(int CoinsToAdd)
     {
         Coins += CoinsToAdd;
@@ -108,11 +113,13 @@ public class GameManager : MonoBehaviour
         GUIManager.Instance.CoinsText.text = Coins.ToString();
     }
 
+    // Add from start
     public void AddCharacter(CharacterManager Character)
     {
         _listCharacter.Add(Character);
     }
 
+    // Load Level Manager ==
     public void LoadLevel()
     {
         LevelID++;
