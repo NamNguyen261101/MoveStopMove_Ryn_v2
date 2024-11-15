@@ -87,6 +87,7 @@ public class SkinShop : MonoBehaviour
         GetChambiID();
     }
 
+    // Enable => SKIN
     private void OnEnable()
     {
         for (int i = 0; i < ItemsPrice.Length; i++)
@@ -195,22 +196,25 @@ public class SkinShop : MonoBehaviour
 
             ItemsStatusInfo.Add((ItemsType)ItemsID, ShopStatus.Unlock);
 
-            PlayerPrefs.SetInt("ItemsShop" + (ItemsType)ItemsID, 3);
+            PlayerPrefs.SetInt("ItemsShop" + (ItemsType)ItemsID, 3); // set ITEM ID
 
             PlayerPrefs.Save();
         }
 
         UpdateButtonState();
 
+        // Update coin
         UpdateCoins();
 
+        // Unlock Status
         UpdateUnLockStatus();
 
-        PlayerPrefs.SetInt("Coins", GameManager.Instance.Coins);
+        PlayerPrefs.SetInt("Coins", GameManager.Instance.Coins); // SET COIN AFTER BUY 
 
         PlayerPrefs.Save();
     }
 
+    // Change Price if we epaid for it
     public void ChangePrice()
     {
         for (int i = 0; i < ItemsPrice.Length; i++)
@@ -257,6 +261,7 @@ public class SkinShop : MonoBehaviour
         }
     }
 
+    // ---------- Unlock Status
     public void UpdateUnLockStatus()
     {
         for(int i = 0; i < ItemsPrice.Length; i++)
@@ -271,6 +276,7 @@ public class SkinShop : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    // ------------------- Update Coin
     public void UpdateCoins()
     {
         _CoinText.text = "" + GameManager.Instance.Coins;
@@ -279,6 +285,7 @@ public class SkinShop : MonoBehaviour
 
     #region Equip Button
 
+    // -------------------- Equip Item
     public void Equip()
     {
         for(int i = 0; i < ItemsPrice.Length; i++)
@@ -312,6 +319,7 @@ public class SkinShop : MonoBehaviour
             PlayerPrefs.Save();
         }
 
+        // Update btn state
         UpdateButtonState();
     }
 
@@ -319,6 +327,7 @@ public class SkinShop : MonoBehaviour
     #endregion
 
     //-------------Get Id Item---------------------------------------
+    // -- Pants --
     #region Pants ID 
     public void GetChambiID()
     {
@@ -370,6 +379,7 @@ public class SkinShop : MonoBehaviour
     }
     #endregion
 
+    // -- Head -- 
     #region Head ID
     public void GetArrowHeadID()
     {
@@ -416,6 +426,7 @@ public class SkinShop : MonoBehaviour
 
     #endregion
 
+    // -- Shield -- 
     #region Shield ID
     public void GetCaptainShield1ID()
     {
@@ -431,6 +442,7 @@ public class SkinShop : MonoBehaviour
     }
     #endregion
 
+    // -- SkinSet -- 
     #region SkinSet ID
     public void GetDevilSetID()
     {

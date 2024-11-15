@@ -524,6 +524,7 @@ public class PlayerCtrl : CharacterManager
         SkinPos.sharedMaterial = PlayerItems.SkinMaterials[0];
     }
 
+    // Reset Head Position
     public void ResetHeadPos()
     {
         foreach(Transform item in HeadPos)
@@ -532,6 +533,7 @@ public class PlayerCtrl : CharacterManager
         }
     }
 
+    // Reset Tail Position
     public void ResetTailPos()
     {
         foreach (Transform item in TailPos)
@@ -540,6 +542,7 @@ public class PlayerCtrl : CharacterManager
         }
     }
 
+    // Reset Wing Position
     public void ResetWingPos()
     {
         foreach (Transform item in WingPos)
@@ -548,6 +551,7 @@ public class PlayerCtrl : CharacterManager
         }
     }
 
+    // Reset Shield Position
     public void ResetShieldPos()
     {
         foreach(Transform item in ShieldPos)
